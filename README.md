@@ -13,5 +13,5 @@
 * 2019 Digital Logic Design
 
   This project contains a CPU design. All details about the project is in that file. The project was done by a group of three students.
-  Veysi Öz and M.Adem Evren Demirkuş are my group members.
+  My group members are Veysi Öz and M.Adem Evren Demirkuş
 
