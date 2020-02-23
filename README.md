@@ -1,6 +1,6 @@
 # Projects
 
-    This file contains the CSE projects and codes of Marmara University. Course names and the year of the course that i took was added each filename. Also all projects have PDF files that explains the project and details.
+  This file contains the CSE projects and codes of Marmara University. Course names and the year of the course that i took was added each filename. Also all projects have PDF files that explains the project and details.
 
 * 2019 Operating Systems
 
