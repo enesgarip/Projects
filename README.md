@@ -15,6 +15,8 @@
   This project contains a CPU design. All details about the project is in that file. The project was done by a group of three students.
   My group members are Veysi Öz and M.Adem Evren Demirkuş.
 
+* 2020 Microprocessors
+  For this project, we design a CPU in logisim and in verilog. Then, we test the projects with FPGA kit. The details of the projects are included in related file. Also, this project was done by a group of two students. @caglasen is my group member.
 
 Others are individual projects. 
 
