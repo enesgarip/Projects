@@ -1,0 +1,28 @@
+.code
+	ldi 7 0x0000
+	ldi 6 0x0010
+	ldi 5 0x0000
+loop1:
+	ldi 1 0x0000
+	dec 6
+	jz out
+	inc 7
+	add 5 4 7
+	add 0 0 5
+	jmp loop2
+loop2:
+	dec 6
+	jz out
+	inc 7
+	add 2 7 4
+	add 3 7 4
+loop3:
+	add 1 7 1
+	dec 2
+	jz loop4
+	jmp loop3
+loop4:
+	add 0 0 1
+	jmp loop1 
+out:
+	jmp out

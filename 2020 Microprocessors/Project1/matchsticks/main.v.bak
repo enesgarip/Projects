@@ -1,0 +1,41 @@
+module main (  output wire [3:0] rowwrite,
+						input [3:0] colread,
+						input clk,
+						output wire [3:0] data,
+						
+						output wire [3:0] grounds,
+						output wire [6:0] display
+					);
+
+reg [15:0] data_all;
+wire [3:0] keyout;
+reg [25:0] clk1;
+reg [1:0] ready_buffer;
+reg ack;
+wire ready;
+
+assign data=keyout;
+	
+sevensegment ss1 (.datain(data_all), .grounds(grounds), .display(display), .clk(clk));
+
+keypad_ex  kp1(.rowwrite(rowwrite),.colread(colread),.clk(clk),.keyout(keyout),.ready(ready),.ack(ack));
+
+always @(posedge clk)
+	ready_buffer<= {ready_buffer[0],ready}; //
+
+always @(posedge clk)
+	if (ready_buffer==2'b01)
+		begin
+			data_all<={data_all[11:0],keyout}; 
+			ack<=1;
+		end
+	else
+			ack<=0;
+
+initial 	
+	begin
+		data_all=0;
+		ack=0;
+	end
+
+endmodule

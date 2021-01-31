@@ -1,0 +1,14 @@
+Analysis & Synthesis Status : Successful - Mon Sep 07 06:26:16 2020
+Quartus Prime Version : 18.0.0 Build 614 04/24/2018 SJ Lite Edition
+Revision Name : matchstickgame
+Top-level Entity Name : main
+Family : Cyclone IV E
+Total logic elements : 867
+    Total combinational functions : 793
+    Dedicated logic registers : 162
+Total registers : 162
+Total pins : 24
+Total virtual pins : 0
+Total memory bits : 0
+Embedded Multiplier 9-bit elements : 0
+Total PLLs : 0

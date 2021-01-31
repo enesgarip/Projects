@@ -1,0 +1,36 @@
+.data
+.code
+		ldi 2 0x0
+		ldi 4 0x0b00
+loop	ldi 3 0x0901
+		ld 3 3	
+		ldi 5 0x1
+		and 3 3 5
+		jz loop
+		ldi 0 0x0900
+		ld 0 0
+		ldi 1 0xf
+		sub 3 1 0
+		jz addit
+		ldi 1 0xe
+		mov 3 2
+		sub 6 6 5
+		sub 1 1 0
+		jz mult
+		jmp number
+number	mov 6 0
+		st 4 6
+		jmp loop
+addit2	add 3 6 2
+		jmp prtRes
+		jmp loop
+mult2	ldi 5 0x1
+		add 3 3 2
+		sub 6 6 5
+		jz prtRes
+		jmp mult
+prtRes	mov 2 3
+		st 4 2
+		jmp loop
+addit	call addit2
+mult	call mult2
