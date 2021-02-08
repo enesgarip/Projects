@@ -18,6 +18,7 @@
   My group members are [@veysioz](https://github.com/veysioz) and M.Adem Evren Demirkuş.
 
 * 2020 Microprocessors
+  
   For this project, we design a CPU in logisim and in verilog. Then, we test the projects with FPGA kit. The details of the projects are included in related file. Also, this project was done by a group of two students. [@caglasen](https://github.com/caglasen) is my group member.
   
 * 2020 Computer Organization
@@ -27,6 +28,10 @@
 * 2020 Object-Oriented Software Design
 
   In this project, we implement a labelling mechanism in object-oriented and iterative manner with Java. Also in the second project, we analyze the poll reports of the Zoom classes and these analysis gives us an output about attendance or the success rate of a student in the polls. The project was done by a group of 7 students. The project and the related files about the project is [here](https://github.com/enesgarip/CSE3063F20P1_GRP19 )
+  
+* 2020 Computer Networks
+
+  This project contains the implementation of Multithreading HTTP Web Server and Proxy Server in Java.  The project was done by a group of two students. Abdullah Gülçür is my group member.
 
 
 Others are individual projects. 
