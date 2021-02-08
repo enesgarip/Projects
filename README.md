@@ -1,3 +1,5 @@
+
+
 # Projects
 
   This file contains the CSE projects and codes of Marmara University. Course names and the year of the course that I took was added each filename. Also all projects have PDF files that explains the project and details.
@@ -24,10 +26,12 @@
   
 * 2020 Object-Oriented Software Design
 
-  In this project, we implement a labelling mechanism in object-oriented and iterative manner with Java. Also in the second project, we analyze the poll reports of the Zoom classes and these analysis gives us an output about attendance or the success rate of a student in the polls. The project was done by a group of 7 student. The project and the related files about project is
+  In this project, we implement a labelling mechanism in object-oriented and iterative manner with Java. Also in the second project, we analyze the poll reports of the Zoom classes and these analysis gives us an output about attendance or the success rate of a student in the polls. The project was done by a group of 7 student. The project and the related files about project is [here](https://github.com/enesgarip/CSE3063F20P1_GRP19 )
 
-  [here]: https://github.com/enesgarip/CSE3063F20P1_GRP19
+  
 
+  
+  
    
 
 Others are individual projects. 
