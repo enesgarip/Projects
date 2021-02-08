@@ -1,6 +1,6 @@
 # Projects
 
-  This file contains the CSE projects and codes of Marmara University. Course names and the year of the course that i took was added each filename. Also all projects have PDF files that explains the project and details.
+  This file contains the CSE projects and codes of Marmara University. Course names and the year of the course that I took was added each filename. Also all projects have PDF files that explains the project and details.
 
 * 2019 Operating Systems
 
@@ -17,6 +17,18 @@
 
 * 2020 Microprocessors
   For this project, we design a CPU in logisim and in verilog. Then, we test the projects with FPGA kit. The details of the projects are included in related file. Also, this project was done by a group of two students. @caglasen is my group member.
+  
+* 2020 Computer Organization
+  
+  This project folder contains two projects. In the first project, we implement some procedures in MIPS assembly language. It has three questions and a menu. We test our code in SPIM simulator. In the second project, we extend the MIPS single-cycle implementation by adding new instructions. These instruction list is given in the project report. These two project was done by a group of two students. @mferoglu is my group member.
+  
+* 2020 Object-Oriented Software Design
+
+  In this project, we implement a labelling mechanism in object-oriented and iterative manner with Java. Also in the second project, we analyze the poll reports of the Zoom classes and these analysis gives us an output about attendance or the success rate of a student in the polls. The project was done by a group of 7 student. The project and the related files about project is
+
+  [here]: https://github.com/enesgarip/CSE3063F20P1_GRP19
+
+   
 
 Others are individual projects. 
 
