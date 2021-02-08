@@ -1,0 +1,80 @@
+[Settings]
+Version=97.1
+Mode=Debug
+SimFile=
+TabStop=4
+
+[Position]
+Width=812
+Height=612
+X=1
+Y=52
+
+[Explorer]
+P1Width=227
+P2Width=438
+View=Icon
+Scope=processor
+
+[Analyzer]
+P1Width=303
+P2Width=627
+C1Width=113
+C2Width=97
+C3Width=90
+
+[DebugMode]
+Delay=Typ
+SaveAll=Yes
+SaveCell=No
+SilosExt=No
+LogFile=Yes
+FunctionalSim=No
+RetainSimData=No
+DiskSize=1000M
+CommandLine=
+
+[Options]
+NoFloatWarn=No
+AutoFileSave=No
+DebugEnable=Yes
+CCEnable=No
+CcOpEnable=No
+
+[Group0]
+Name=Default
+0="processor : memwrite"
+1="processor : regwrite"
+2="processor : memtoreg"
+3="processor : dpack[31:0]"
+4="processor : adder1out[31:0]"
+5="processor : extad[31:0]"
+6="processor : sextad[31:0]"
+7="processor : out2[31:0]"
+8="processor : alusrc"
+9="Blank"
+10="processor : sum[31:0]"
+11="processor : data2[31:0]"
+12="processor : data1[31:0]"
+13="processor : pc[31:0]"
+14="processor : instruc[31:0]"
+15="processor : clk"
+
+[Files]
+0=mult2_to_1_32.v
+1=alu32.v
+2=alucont.v
+3=control.v
+4=adder.v
+5=signext.v
+6=processor.v
+7=shift.v
+8=mult2_to_1_5.v
+
+[WindowPos]
+Output=0,1,0,-1,-4,-30,0,0,655,300
+Explorer=0,1,0,-1,-4,-30,58,58,742,328
+OpenWindows=
+processor.v=0,1,0,-1,-4,-30,29,29,713,299
+[OpenFile]
+0="processor.v"

@@ -1,0 +1,92 @@
+C:/Users/Muhammed/Desktop/final/control.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/control.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module control
+
+Top level modules:
+	control
+
+} {} {}} C:/Users/Muhammed/Desktop/final/mult2_to_1_5.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/mult2_to_1_5.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mult2_to_1_5
+
+Top level modules:
+	mult2_to_1_5
+
+} {} {}} C:/Users/Muhammed/Desktop/final/mult2_to_1_32.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/mult2_to_1_32.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mult2_to_1_32
+
+Top level modules:
+	mult2_to_1_32
+
+} {} {}} C:/Users/Muhammed/Desktop/final/mult4_to_1_32.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/mult4_to_1_32.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mult4_to_1_32
+
+Top level modules:
+	mult4_to_1_32
+
+} {} {}} C:/Users/Muhammed/Desktop/final/shift_26.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/shift_26.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module shift_26
+
+Top level modules:
+	shift_26
+
+} {} {}} C:/Users/Muhammed/Desktop/final/processor.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/processor.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module processor
+
+Top level modules:
+	processor
+
+} {} {}} C:/Users/Muhammed/Desktop/final/adder.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/adder.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module adder
+
+Top level modules:
+	adder
+
+} {} {}} C:/Users/Muhammed/Desktop/final/signext.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/signext.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module signext
+
+Top level modules:
+	signext
+
+} {} {}} C:/Users/Muhammed/Desktop/final/br_j_control.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/br_j_control.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module br_j_control
+
+Top level modules:
+	br_j_control
+
+} {} {}} C:/Users/Muhammed/Desktop/final/alucont.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/alucont.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module alucont
+
+Top level modules:
+	alucont
+
+} {} {}} C:/Users/Muhammed/Desktop/final/shift.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/shift.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module shift
+
+Top level modules:
+	shift
+
+} {} {}} C:/Users/Muhammed/Desktop/final/alu32.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/alu32.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module alu32
+
+Top level modules:
+	alu32
+
+} {} {}} C:/Users/Muhammed/Desktop/final/mult2_to_1_2.v {1 {vlog -work last -stats=none C:/Users/Muhammed/Desktop/final/mult2_to_1_2.v
+Model Technology ModelSim PE Student Edition vlog 10.4a Compiler 2015.03 Apr  7 2015
+-- Compiling module mult2_to_1_2
+
+Top level modules:
+	mult2_to_1_2
+
+} {} {}}
