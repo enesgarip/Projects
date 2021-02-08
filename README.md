@@ -26,7 +26,7 @@
   
 * 2020 Object-Oriented Software Design
 
-  In this project, we implement a labelling mechanism in object-oriented and iterative manner with Java. Also in the second project, we analyze the poll reports of the Zoom classes and these analysis gives us an output about attendance or the success rate of a student in the polls. The project was done by a group of 7 students. The project and the related files about project is [here](https://github.com/enesgarip/CSE3063F20P1_GRP19 )
+  In this project, we implement a labelling mechanism in object-oriented and iterative manner with Java. Also in the second project, we analyze the poll reports of the Zoom classes and these analysis gives us an output about attendance or the success rate of a student in the polls. The project was done by a group of 7 students. The project and the related files about the project is [here](https://github.com/enesgarip/CSE3063F20P1_GRP19 )
 
 
 Others are individual projects. 
