@@ -60,7 +60,7 @@
 
 - 2021 Database Systems
 
-  This folder contains assignments about Database Systems. All the details about assignments given in the related pdf files. Also we have completed a project. In the project, we created a database system and web interface for a restaurant. My group members are [@veysioz](https://github.com/veysioz), [@ahamzademir](https://github.com/ahamzademir) and [@NurefsanYucel](https://github.com/NurefsanYucel). The project details is also [here](https://github.com/enesgarip/CSE3055-Database-Systems-2021)
+  This folder contains assignments about Database Systems. All the details about assignments given in the related pdf files. Also we have completed a project. In the project, we created a database system and web interface for a restaurant. My group members are [@veysioz](https://github.com/veysioz), [@ahamzademir](https://github.com/ahamzademir) and [@NurefsanYucel](https://github.com/NurefsanYucel). The project details also [here](https://github.com/enesgarip/CSE3055-Database-Systems-2021)
 
   
 
