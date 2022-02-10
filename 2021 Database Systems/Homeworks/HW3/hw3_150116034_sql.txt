@@ -1,0 +1,147 @@
+-- Enes Garip 150116034 Database Systems Homework 3
+USE hw3_150116034;
+-- Question 2
+UPDATE Player SET Age = DATEDIFF(YEAR, Birthdate,getdate())
+
+-- Question 3
+SELECT p.PlayerID, (p.FirstName + ' ' + p.LastName) AS FullName FROM Player p, PlayerTeam pt, Team t
+WHERE p.PlayerID = pt.PlayerID AND pt.TeamID = t.TeamID AND p.Age < (SELECT AVG(Age) FROM Player) AND p.FirstName NOT LIKE '%nec%' AND t.Name = 'Beşiktaş' ;
+
+-- Question 4
+UPDATE Team SET Team.City = team.City + ' #p' + CAST(playersCountTeam.playersCount AS NVARCHAR) + ' #g' + CAST(goalCount.goal AS NVARCHAR)
+FROM 
+	(SELECT t.TeamID,t.City FROM Team t) AS team,
+	(SELECT pt.TeamID, COUNT(pt.TeamID) AS playersCount FROM PlayerTeam pt WHERE pt.Season ='13-14' GROUP BY pt.TeamID) AS playersCountTeam,
+	(SELECT t.TeamID, COUNT(t.teamID) AS goal FROM Goals g, PlayerTeam pt, Team t WHERE pt.Season = '13-14' AND pt.TeamID = t.TeamID AND pt.PlayerID = g.PlayerID GROUP BY t.TeamID) as goalCount
+WHERE team.TeamID = playersCountTeam.TeamID AND team.TeamID = goalCount.TeamID AND Team.TeamID = team.TeamID
+
+-- Question 5
+SELECT goalsCount.PlayerID, goalsCount.FirstName, goalsCount.LastName, goalsCount.goalCount, (totalMatch.playedMatch- totalMatchWithGoal.matchWithGoal) AS WithoutScore, 
+CAST((1.0*goalsCount.goalCount/totalMatchWithGoal.matchWithGoal) AS DECIMAL(3,2)) AS Average
+FROM 
+(SELECT TOP 10 g.PlayerID, p.FirstName,p.LastName, COUNT(g.PlayerID) AS goalCount
+	FROM Goals g, Player p
+	WHERE p.PlayerID = g.PlayerID
+	GROUP BY g.PlayerID, p.FirstName, p.LastName
+	ORDER BY COUNT(g.PlayerID) DESC) AS goalsCount,
+(SELECT COUNT(*) AS playedMatch, pt.PlayerID
+	FROM PlayerTeam pt, Match m
+	WHERE (pt.TeamID = m.HomeTeamID or pt.TeamID = m.VisitingTeamID) AND pt.Season = '13-14'
+	GROUP BY pt.PlayerID) AS totalMatch,
+(SELECT g.PlayerID, COUNT(DISTINCT g.MatchID) as matchWithGoal
+	FROM Goals g
+	GROUP BY g.PlayerID) AS totalMatchWithGoal
+WHERE goalsCount.PlayerID = totalMatch.PlayerID AND totalMatch.PlayerID = totalMatchWithGoal.PlayerID
+ORDER BY goalCount DESC
+
+-- Question 6
+CREATE PROCEDURE sp_GetStandingsUpToDate @aDate DATETIME AS
+	BEGIN
+		IF (@aDate > '2013-08-16' OR @aDate < '2014-07-31')
+			BEGIN
+				DECLARE @standing TABLE(Name nvarchar(30), GP smallint, W smallint, T smallint, L smallint, GF smallint, GA smallint, GD smallint, Pts smallint)
+				INSERT INTO @standing
+				SELECT homeTeam.Name, (homeTeam.homeCount + awayTeam.awayCount) AS totalMatch ,0,0,0,0,0,0,0 FROM
+				(SELECT COUNT(*) AS homeCount, t.Name, t.TeamID FROM Match m JOIN Team t ON m.HomeTeamID = t.TeamID AND m.DateOfMatch < @aDate GROUP BY t.Name, t.TeamID) AS homeTeam,
+				(SELECT COUNT(*) AS awayCount, t.Name, t.TeamID FROM Match m JOIN Team t ON m.VisitingTeamID = t.TeamID AND m.DateOfMatch < @aDate GROUP BY t.Name, t.TeamID) AS awayTeam
+				WHERE homeTeam.TeamID = awayTeam.TeamID
+				
+				UPDATE @standing SET GF = gf.totalGoal FROM @standing s, (SELECT SUM(totalGoal.normalGoals) AS totalGoal, totalGoal.Name FROM 
+				(SELECT COUNT(*) AS normalGoals, t.Name FROM Match m, Goals g, PlayerTeam pt, Team t 
+				WHERE g.IsOwnGoal = 0 AND pt.Season = '13-14' AND g.MatchID = m.MatchID AND pt.PlayerID = g.PlayerID AND m.DateOfMatch < @aDate AND pt.TeamID = t.TeamID GROUP BY t.Name 
+				UNION ALL
+				SELECT COUNT(*), t2.Name
+				FROM Match m, Goals g, PlayerTeam pt,  Team t1, Team t2
+				WHERE m.HomeTeamID = pt.TeamID AND g.IsOwnGoal=1 AND g.MatchID = m.MatchID AND pt.Season = '13-14' AND pt.PlayerID = g.PlayerID AND m.DateOfMatch < @aDate AND pt.TeamID = t1.TeamID AND t2.TeamID = m.VisitingTeamID GROUP BY t2.Name
+				UNION ALL
+				SELECT COUNT(*), t2.Name
+				FROM Match m, Goals g, PlayerTeam pt,  Team t1, Team t2
+				WHERE m.VisitingTeamID = pt.TeamID AND g.IsOwnGoal=1 AND g.MatchID = m.MatchID AND pt.Season = '13-14' AND pt.PlayerID = g.PlayerID AND m.DateOfMatch < @aDate AND pt.TeamID = t1.TeamID AND t2.TeamID = m.HomeTeamID
+				GROUP BY t2.Name) AS totalGoal GROUP BY totalGoal.Name) gf WHERE s.Name = gf.Name 
+				
+				UPDATE @standing SET GA = ga.totalGoal FROM @standing s, (SELECT SUM(againstGoals.homeGoal) AS totalGoal, againstGoals.Name FROM
+				(SELECT COUNT(*) AS homeGoal, t1.Name
+				FROM Match m, Goals g, PlayerTeam pt, Team t1, Team t2
+				WHERE g.IsOwnGoal = 0 AND m.DateOfMatch < @aDate AND m.MatchID = g.MatchID AND g.PlayerID = pt.PlayerID AND pt.Season = '13-14' AND pt.TeamID = t2.TeamID AND m.HomeTeamID = t1.TeamID AND m.VisitingTeamID = t2.TeamID
+				GROUP BY t1.Name
+				UNION ALL
+				SELECT COUNT(*), t1.Name
+				FROM Match m, Goals g, PlayerTeam pt, Team t1, Team t2
+				WHERE g.IsOwnGoal = 0 AND m.DateOfMatch < @aDate AND m.MatchID = g.MatchID AND g.PlayerID = pt.PlayerID AND pt.Season = '13-14' AND pt.TeamID = t2.TeamID AND m.HomeTeamID = t2.TeamID AND m.VisitingTeamID = t1.TeamID
+				GROUP BY t1.Name
+				UNION ALL
+				SELECT COUNT(*), t1.Name
+				FROM Match m, Goals g, PlayerTeam pt,  Team t1
+				WHERE g.IsOwnGoal = 1 and m.DateOfMatch < @aDate and m.MatchID = g.MatchID and g.PlayerID = pt.PlayerID and pt.Season = '13-14' and t1.TeamID = pt.TeamID
+				GROUP BY t1.Name) againstGoals
+				GROUP BY againstGoals.Name) ga
+				WHERE ga.Name = s.Name
+				
+				UPDATE @standing SET GD = GF - GA
+
+				DECLARE @temp TABLE(matchID int ,homeTeamID int, homeTeamGoal int, visitingTeamID int, visitingTeamGoal int)
+				INSERT INTO @temp SELECT m.matchID,t1.TeamID, 0, t2.TeamID, 0 FROM Match m, Team t1, Team t2 WHERE m.DateOfMatch < @aDate and m.HomeTeamID = t1.TeamID and m.VisitingTeamID = t2.TeamID
+				
+				UPDATE @temp
+				SET homeTeamGoal = homeGoal.totalHomeGoal
+				FROM @temp t,
+				(SELECT g.MatchID, pt.TeamID, count(*) as totalHomeGoal
+				FROM Goals g, PlayerTeam pt
+				WHERE g.PlayerID = pt.PlayerID and pt.Season = '13-14' and g.IsOwnGoal = 0
+				GROUP BY g.MatchID, pt.TeamID) as homeGoal
+				WHERE homeGoal.TeamID = t.homeTeamID and homeGoal.MatchID = t.matchID
+
+				UPDATE @temp
+				SET visitingTeamGoal= visitingGoal.totalVisitingGoal
+				FROM @temp t,
+				(SELECT g.MatchID, pt.TeamID, count(*) as totalVisitingGoal
+				FROM Goals g, PlayerTeam pt
+				WHERE g.PlayerID = pt.PlayerID and pt.Season = '13-14' and g.IsOwnGoal = 0
+				GROUP BY g.MatchID, pt.TeamID) as visitingGoal
+				WHERE visitingGoal.TeamID = t.visitingTeamID and visitingGoal.MatchID = t.matchID
+
+				UPDATE @temp SET homeTeamGoal = homeTeamGoal + awayOwnGoal.awayOwnGoalCount FROM @temp t, (SELECT g.MatchID, pt.TeamID, COUNT(*) AS awayOwnGoalCount FROM Goals g JOIN PlayerTeam pt 
+				ON g.PlayerID = pt.PlayerID AND g.IsOwnGoal = 1 AND pt.season = '13-14' GROUP BY g.MatchID, pt.TeamID) AS awayOwnGoal WHERE awayOwnGoal.TeamID = t.visitingTeamID AND t.matchID = awayOwnGoal.MatchID
+				
+				UPDATE @temp SET visitingTeamGoal = visitingTeamGoal + homeOwnGoal.homeOwnGoalCount FROM @temp t, (SELECT g.MatchID, pt.TeamID, COUNT(*) AS homeOwnGoalCount FROM Goals g JOIN PlayerTeam pt 
+				ON g.PlayerID = pt.PlayerID AND g.IsOwnGoal = 1 AND pt.season = '13-14' GROUP BY g.MatchID, pt.TeamID) AS homeOwnGoal WHERE homeOwnGoal.TeamID = t.homeTeamID AND t.matchID = homeOwnGoal.MatchID
+
+				DECLARE @temp2 TABLE(matchID INT, winnerID INT, loserID INT) INSERT INTO @temp2 SELECT m.matchID,0,0 FROM Match m WHERE m.DateOfMatch < @aDate
+
+				UPDATE @temp2
+				SET winnerID = 
+				CASE 
+				WHEN (SELECT [@temp].homeTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) > (SELECT [@temp].visitingTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) THEN (SELECT [@temp].homeTeamID FROM @temp WHERE [@temp2].matchID = matchID)
+				WHEN (SELECT [@temp].visitingTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) > (SELECT [@temp].homeTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) THEN (SELECT [@temp].visitingTeamID FROM @temp WHERE [@temp2].matchID = matchID) ELSE 0 END
+				
+
+				UPDATE @temp2
+				SET loserID = 
+				CASE 
+				WHEN (SELECT [@temp].homeTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) < (SELECT [@temp].visitingTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) THEN (SELECT [@temp].homeTeamID FROM @temp WHERE [@temp2].matchID = matchID)
+				WHEN (SELECT [@temp].visitingTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) < (SELECT [@temp].homeTeamGoal FROM @temp WHERE [@temp2].matchID = matchID) THEN (SELECT [@temp].visitingTeamID FROM @temp WHERE [@temp2].matchID = matchID) ELSE 0 END
+				
+				UPDATE @standing
+				SET W = winCount FROM @standing s, (SELECT COUNT(*) as winCount, t.Name as teamName FROM @temp2, Team t WHERE [@temp2].winnerID = t.TeamID GROUP BY t.Name) AS wins WHERE s.Name = wins.teamName
+				
+				UPDATE @standing
+				SET L = loseCount FROM @standing s, (SELECT COUNT(*) as loseCount, t.Name as teamName FROM @temp2, Team t WHERE [@temp2].loserID = t.TeamID GROUP BY t.Name) AS loses WHERE s.Name = loses.teamName
+				
+				UPDATE @standing SET T = GP - W - L
+
+				UPDATE @standing SET Pts = W * 3 + T
+
+				SELECT  *
+				FROM @temp2
+
+				SELECT  *
+				FROM @temp
+				SELECT *
+				FROM @standing ORDER BY Pts DESC
+				
+			END
+		ELSE
+			BEGIN
+				RAISERROR('Invalid date!',1,1)
+			END
+	END

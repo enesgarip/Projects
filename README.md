@@ -58,6 +58,24 @@
 
   
 
+- 2021 Database Systems
+
+  This folder contains assignments about Database Systems. All the details about assignments given in the related pdf files. Also we have completed a project. In the project, we created a database system and web interface for a restaurant. My group members are [@veysioz](https://github.com/veysioz), [@ahamzademir](https://github.com/ahamzademir) and [@NurefsanYucel](https://github.com/NurefsanYucel). The project details is also [here](https://github.com/enesgarip/CSE3055-Database-Systems-2021)
+
+  
+
+- 2021 Introduction to Machine Learning
+
+  In this folder, there are assignments and a project about Machine Learning. Assignment details given in the related pdf files. In project, we tried to implement stock price prediction using Machine Learning. We used Google's stock data and LSTM architecture to predict the data. My group members are []() and []()
+
+  
+
+- 2021 Introduction to Computational Genomics
+
+  In this course, we implemented a project about Gibbs Sampler algorithm and Randomized Motif Search algorithm. After the implementation of the algorithms, we compared their scores and consensus strings. All the details about project given in the pdf file. The project was done by a group of three students. My group members are [@tunacinsoy](https://github.com/tunacinsoy) and []()
+
+  
+
 Others are individual projects. 
 
-The Projects file will be updated when a new project is arrived.
+The Projects file will be updated when a new project arrives.

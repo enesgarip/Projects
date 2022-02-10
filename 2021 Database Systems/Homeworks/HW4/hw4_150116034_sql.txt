@@ -1,0 +1,107 @@
+Create Table Standings (
+	Pos tinyint,
+	[Team Name] nvarchar(30),
+	GP tinyint,
+	W tinyint,
+	T tinyint,
+	L tinyint,
+	GF smallint,
+	GA smallint,
+	GD smallint,
+	Pts tinyint
+)
+
+Create Table TransactionLog (
+	LogID int identity(1,1) primary key,
+	LogTime datetime,
+	LogType char(1),
+	BeforeState nvarchar(500),
+	AfterState nvarchar(500)
+)
+
+INSERT INTO Standings EXEC sp_GetStandingsUpToDate '2014-07-15'
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+CREATE TRIGGER Trg_RearrangeStandings ON Goals AFTER INSERT, UPDATE, DELETE
+AS
+BEGIN
+	DECLARE @LogType char(1), @LogTime datetime, @BeforeState nvarchar(100), @AfterState nvarchar(100), @MatchIDBefore int, @PlayerIDBefore int,
+	@isOwnGoalBefore bit, @MinuteBefore int, @MatchIDAfter int, @PlayerIDAfter int, @isOwnGoalAfter bit, @MinuteAfter int
+
+	IF(@MinuteBefore < 1)
+		RAISERROR('Match duration can not be less than 1',1,1)
+	IF(@MinuteBefore > 90)
+		RAISERROR('Match duration can not be greater than 90',1,1)
+
+	IF (SELECT COUNT(*) FROM INSERTED) = 1 AND (SELECT COUNT(*) FROM DELETED) = 1
+	BEGIN
+		BEGIN
+		SET @MatchIDAfter = (SELECT INSERTED.MatchID FROM INSERTED)
+		SET @PlayerIDAfter = (SELECT INSERTED.PlayerID FROM INSERTED)
+		SET @isOwnGoalAfter = (SELECT INSERTED.IsOwnGoal FROM INSERTED)
+		SET @MinuteAfter = (SELECT INSERTED.Minute FROM INSERTED)
+		SET @MatchIDBefore = (SELECT DELETED.MatchID FROM DELETED)
+		SET @PlayerIDBefore = (SELECT DELETED.PlayerID FROM DELETED)
+		SET @isOwnGoalBefore = (SELECT DELETED.IsOwnGoal FROM DELETED)
+		SET @MinuteBefore = (SELECT DELETED.Minute FROM DELETED)
+		SET @LogType = 'U'
+		SET @LogTime = SYSDATETIME()
+		SET @BeforeState = (SELECT CONCAT(DELETED.MatchID, ';',DELETED.PlayerID, ';',DELETED.IsOwnGoal, ';',DELETED.Minute) FROM DELETED)
+		SET @AfterState = (SELECT CONCAT(INSERTED.MatchID, ';',INSERTED.PlayerID, ';',INSERTED.IsOwnGoal, ';',INSERTED.Minute) FROM INSERTED)
+		IF ((SELECT COUNT(*) FROM Goals g, PlayerTeam pt, Match m WHERE g.PlayerID = pt.PlayerID AND g.MatchID = m.MatchID AND (pt.TeamID = m.HomeTeamID or pt.TeamID = m.VisitingTeamID) 
+		AND @MatchIDAfter = m.MatchID and g.PlayerID = @PlayerIDAfter and pt.Season = '13-14')=1)
+			INSERT INTO TransactionLog VALUES (@LogTime, @LogType,@BeforeState,@AfterState)
+		ELSE
+			RAISERROR('Wrong match-team-player assignment!',1,1)
+		END
+	END
+	IF (SELECT COUNT(*) FROM INSERTED) = 1 AND (SELECT COUNT(*) FROM DELETED) = 0
+	BEGIN
+		BEGIN
+		SET @MatchIDAfter = (SELECT INSERTED.MatchID FROM INSERTED)
+		SET @PlayerIDAfter = (SELECT INSERTED.PlayerID FROM INSERTED)
+		SET @isOwnGoalAfter = (SELECT INSERTED.IsOwnGoal FROM INSERTED)
+		SET @MinuteAfter = (SELECT INSERTED.Minute FROM INSERTED)
+		SET @MatchIDbefore =''
+		SET @PlayerIDbefore =''
+		SET @IsOwnGoalbefore =''
+		SET @Minutebefore =''
+		SET @LogType = 'I'
+		SET @LogTime = SYSDATETIME()
+		SET @BeforeState = (SELECT CONCAT(DELETED.MatchID, ';',DELETED.PlayerID, ';',DELETED.IsOwnGoal, ';',DELETED.Minute) FROM DELETED)
+		SET @AfterState = (SELECT CONCAT(INSERTED.MatchID, ';',INSERTED.PlayerID, ';',INSERTED.IsOwnGoal, ';',INSERTED.Minute) FROM INSERTED)
+		IF ((SELECT COUNT(*) FROM Goals g, PlayerTeam pt, Match m WHERE g.PlayerID = pt.PlayerID AND g.MatchID = m.MatchID AND (pt.TeamID = m.HomeTeamID or pt.TeamID = m.VisitingTeamID) 
+		AND @MatchIDAfter = m.MatchID and g.PlayerID = @PlayerIDAfter and pt.Season = '13-14')=1)
+			INSERT INTO TransactionLog VALUES (@LogTime, @LogType,@BeforeState,@AfterState)
+		ELSE
+			RAISERROR('Wrong match-team-player assignment!',1,1)
+		END
+	END
+	IF (SELECT COUNT(*) FROM INSERTED) = 0 AND (SELECT COUNT(*) FROM DELETED) = 1
+	BEGIN
+		BEGIN
+		SET @MatchIDAfter = ''
+		SET @PlayerIDAfter = ''
+		SET @isOwnGoalAfter = ''
+		SET @MinuteAfter = ''
+		SET @MatchIDBefore = (SELECT DELETED.MatchID FROM DELETED)
+		SET @PlayerIDBefore = (SELECT DELETED.PlayerID FROM DELETED)
+		SET @isOwnGoalBefore = (SELECT DELETED.IsOwnGoal FROM DELETED)
+		SET @MinuteBefore = (SELECT DELETED.Minute FROM DELETED)
+		SET @LogType = 'D'
+		SET @LogTime = SYSDATETIME()
+		SET @BeforeState = (SELECT CONCAT(DELETED.MatchID, ';',DELETED.PlayerID, ';',DELETED.IsOwnGoal, ';',DELETED.Minute) FROM DELETED)
+		SET @AfterState = (SELECT CONCAT(INSERTED.MatchID, ';',INSERTED.PlayerID, ';',INSERTED.IsOwnGoal, ';',INSERTED.Minute) FROM INSERTED)
+		IF ((SELECT COUNT(*) FROM Goals g, PlayerTeam pt, Match m WHERE g.PlayerID = pt.PlayerID AND g.MatchID = m.MatchID AND (pt.TeamID = m.HomeTeamID or pt.TeamID = m.VisitingTeamID) 
+		AND @MatchIDBefore = m.MatchID and g.PlayerID = @PlayerIDBefore and pt.Season = '13-14')=1)
+			INSERT INTO TransactionLog VALUES (@LogTime, @LogType,@BeforeState,@AfterState)
+		ELSE
+			RAISERROR('Wrong match-team-player assignment!',1,1)
+		END
+	END
+END
+GO
