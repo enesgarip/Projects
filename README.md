@@ -66,13 +66,13 @@
 
 - 2021 Introduction to Machine Learning
 
-  In this folder, there are assignments and a project about Machine Learning. Assignment details given in the related pdf files. In project, we tried to implement stock price prediction using Machine Learning. We used Google's stock data and LSTM architecture to predict the data. My group members are []() and []()
+  In this folder, there are assignments and a project about Machine Learning. Assignment details given in the related pdf files. In project, we tried to implement stock price prediction using Machine Learning. We used Google's stock data and LSTM architecture to predict the data. My group members are Tunahan Aydın and Mustafa Sertaç Öztürk.
 
   
 
 - 2021 Introduction to Computational Genomics
 
-  In this course, we implemented a project about Gibbs Sampler algorithm and Randomized Motif Search algorithm. After the implementation of the algorithms, we compared their scores and consensus strings. All the details about project given in the pdf file. The project was done by a group of three students. My group members are [@tunacinsoy](https://github.com/tunacinsoy) and []()
+  In this course, we implemented a project about Gibbs Sampler algorithm and Randomized Motif Search algorithm. After the implementation of the algorithms, we compared their scores and consensus strings. All the details about project given in the pdf file. The project was done by a group of three students. My group members are [@tunacinsoy](https://github.com/tunacinsoy) and [@myasintufan](https://github.com/myasintufan)
 
   
 
