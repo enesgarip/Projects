@@ -66,7 +66,7 @@
 
 - 2021 Introduction to Machine Learning
 
-  In this folder, there are assignments and a project about Machine Learning. Assignment details given in the related pdf files. In project, we tried to implement stock price prediction using Machine Learning. We used Google's stock data and LSTM architecture to predict the data. My group members are Tunahan Aydın and Mustafa Sertaç Öztürk.
+  In this folder, there are assignments and a project about Machine Learning. Assignment details given in the related pdf files. In project, we tried to implement stock price prediction using Machine Learning. We used Google's stock data and LSTM architecture to predict the data. My group members are [@taydin25](https://github.com/taydin25) and Mustafa Sertaç Öztürk.
 
   
 
