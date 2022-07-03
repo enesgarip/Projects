@@ -78,7 +78,7 @@
 * 2022 Principles of Programming Languages
 
   In this course, we tried to understand the basic concepts of programming languages and we completed a Family Tree project with Python and Haskell to learn how to implement projects using different pro
-  languages. The details of the project also included in the pdf file. Python part of the project is [here](https://github.com/veysioz/family-tree-warehouse) The project was done by a group of four students. My group members were [@veysioz](https://github.com/veysioz), [@AGoktugylmz](https://github.com/AGoktugylmz) and [@tunacinsoy](https://github.com/tunacinsoy). 
+  languages. The details of the project also included in the pdf file. Python part of the project is [here](https://github.com/veysioz/family-tree-warehouse). The project was done by a group of four students. My group members were [@veysioz](https://github.com/veysioz), [@AGoktugylmz](https://github.com/AGoktugylmz) and [@tunacinsoy](https://github.com/tunacinsoy). 
 
 
 
